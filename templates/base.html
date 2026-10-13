@@ -1,5 +1,6 @@
-{% load static %}
 <!doctype html>
+{% load static %}
+
 <html lang="en">
 
 <head>
@@ -13,19 +14,17 @@
 </head>
 
 <body>
-  
+
+    <div class="container">
+
+        {% include "navbar.html" %}
+
+        {% block content %}
 
 
 
-
-    {% block content %}
-    {% endblock content %}
-
-
-
-
-
-
+        {% endblock content %}
+    </div>
 
 
 
