@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm ,UserCreationForm
 class Recruiter_ProfileForm(forms.ModelForm):
      class Meta:
          model=Recruiter_Profile
-         fields=['username', 'displayname','email','password1', 'password2']
+         fields= '__all__'
          
          
          
