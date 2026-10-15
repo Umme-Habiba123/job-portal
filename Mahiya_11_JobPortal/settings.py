@@ -69,7 +69,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Mahiya_11_JobPortal.wsgi.application'
 
-AUTH_USER_MODEL= 'job.User'
+# AUTH_USER_MODEL= 'job.User'
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
@@ -127,3 +127,6 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+
+AUTH_USER_MODEL = 'job.User'

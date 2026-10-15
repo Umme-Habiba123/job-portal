@@ -41,3 +41,12 @@ class JobSeeker_Profile(models.Model):
    def __str__(self):
        return  self.full_name
 
+class Job(models.Model):
+   title=models.CharField(max_length=200)
+   vacancy=models.CharField(max_length=20)
+   category=models.CharField(max_length=200)
+   jobdescription=models.CharField(max_length=200)
+   skills=models.CharField(max_length=300)
+   
+   def __str__(self):
+      return self.title

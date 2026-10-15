@@ -1,6 +1,9 @@
 from django import forms
 from .models import *
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm ,UserCreationForm
+
+User =get_user_model()
 
 
 class Recruiter_ProfileForm(forms.ModelForm):
@@ -32,26 +35,34 @@ class RegisterForm(UserCreationForm):
         }
     ))
     
-    password1=forms.CharField(label='Password', widget=forms.TextInput(
+    password1=forms.CharField(label='Password', widget=forms.PasswordInput(
         attrs={
             'class':'form-control',
             'placeholder':'Password'
         }
     ))
     
-    password2=forms.CharField(label='Confirm Password', widget=forms.TextInput(
+    password2=forms.CharField(label='Confirm Password', widget=forms.PasswordInput(
         attrs={
             'class':'form-control',
             'placeholder':'Confirm Password'
         }
     ))
     
-    usertype=forms.CharField(label='User Type', widget=forms.TextInput(
+    user_type=forms.ChoiceField(label='User Type', choices=[
+        ('recruiter','Recruiter'),
+        ('jobseeker','Job Seeker'),
+        
+        ] , 
+            widget=forms.Select(
         attrs={
-            'class':'form-control',
-            'placeholder':'Role'
+            'class':'form-select',
         }
     ))
+    
+    class Meta:
+        model=User
+        fields=['username', 'displayname', 'email','password1', 'password2', 'user_type']
     
 class LoginForm(AuthenticationForm):
     
@@ -69,3 +80,9 @@ class LoginForm(AuthenticationForm):
         }
     ))
     
+
+class JobForm(forms.ModelForm):
+    class Meta:
+        model=Job
+        fields='__all__'
+        

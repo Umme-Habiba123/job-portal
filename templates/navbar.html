@@ -25,7 +25,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-secondary" href="#">
+                    <a class="nav-link text-secondary" href="{% url 'jobpost' %}">
                         Jobs
                     </a>
                 </li>
@@ -55,8 +55,8 @@
             </form>
 
             <div class="d-flex gap-2 ms-lg-3 mt-3 mt-lg-0">
-                <a href="{% url 'login' %}" class="btn btn-outline-primary">
-                    Login
+                <a href="{% url 'logout' %}" class="btn btn-outline-primary">
+                    Logout
                 </a>
 
                 <a href="{% url 'register' %}" class="btn btn-primary">

@@ -18,14 +18,19 @@
     <div class="container min-vh-100 d-flex justify-content-center align-items-center">
 
         <form method="post" class="p-4 border rounded-4 shadow-sm bg-white" style="width: 100%; max-width: 420px;">
+  <h3 class="text-center mb-4">Register</h3>
 
-         {% csrf_token %}
+            {% csrf_token %}
 
-         {{form.as_p}}
+            {{form.as_p}}
 
 
-         <button type="button" class="btn-outline theme-info">Register</button>
+            <p>Already have an account? <span><a href="{% url 'login' %}">Login</span></a></p>
 
+
+            <button type="submit" class="btn btn-primary w-100">
+                Register
+            </button>
         </form>
 
     </div>

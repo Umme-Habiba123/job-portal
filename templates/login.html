@@ -13,38 +13,20 @@
 
 <body>
 
-    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+    <div  class="container min-vh-100 d-flex justify-content-center align-items-center">
 
-        <form class="p-4 border rounded-4 shadow-sm bg-white" style="width: 100%; max-width: 420px;">
+        <form method="post" class="p-4 border rounded-4 shadow-sm bg-white" style="width: 100%; max-width: 420px;">
 
             <h3 class="text-center mb-4">Login</h3>
 
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">
-                    Email address
-                </label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email">
-            </div>
+            {% csrf_token %}
 
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
-                    Password
-                </label>
-                <input type="password" class="form-control" id="exampleInputPassword1"
-                    placeholder="Enter your password">
-            </div>
-
-            <div class="mb-3 form-check">
-                <input type="checkbox" id="exampleCheck1" class="form-check-input">
-                <label for="exampleCheck1" class="form-check-label">
-                    Remember me
-                </label>
-            </div>
+            {{form.as_p}}
 
             <button type="submit" class="btn btn-primary w-100">
                 Login
             </button>
-
+            <p>Don't have an account? <span><a href="{% url 'register' %}">Register</span></a></p>
         </form>
 
     </div>
