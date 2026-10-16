@@ -10,7 +10,11 @@ User=get_user_model()
 @login_required(login_url='login')
 
 def home(request):
-    return render(request,'base.html')
+    jobs=Job.objects.all().order_by('created_at')
+    return render(request,'home.html',{
+       'jobs': jobs   
+    }  
+    )
 
 def register(request):
     if request.method=='POST':
@@ -60,14 +64,29 @@ def user_logout(request):
     return redirect('login')
 
 
+@login_required
 def jobpost(request):
     if request.method=='POST':
+        form=JobForm(request.POST)
+        
         if form.is_valid():
-          form.save()
-          return redirect('jobpost')
+            job=form.save(commit=False)
+            job.recruiter=request.user
+            job.save()
+            return redirect('home')
     else:
         form=JobForm()
         
-        return render(request, 'jobpost.html', {
+    return render(request, 'jobpost.html', {
               'form' : form  
-        })   
+       })   
+      
+        
+def recruiter_dashboard(request):
+    jobs=job.objects.filter(
+        recruiter=recruiter.user
+    ).order_by('created_at')
+    
+    return render(request, 'recruiter_dashboard.html',{
+        'jobs':jobs
+    })

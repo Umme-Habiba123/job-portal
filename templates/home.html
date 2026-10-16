@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>this is home</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+ <h1>Available Jobs</h1>
+
+    {% for job in jobs %}
+
+        <div>
+            <h3>{{ job.title }}</h3>
+
+            <p>Category: {{ job.category }}</p>
+
+            <p>
+                Openings: {{ job.vacancy }}
+            </p>
+
+            <p>Description: {{ job.jobdescription }}</p>
+
+            <p>Skills: {{ job.skills }}</p>
+
+            <hr>
+        </div>
+
+    {% empty %}
+
+        <p>No jobs available right now.</p>
+
+    {% endfor %}
+
+{% endblock content %}

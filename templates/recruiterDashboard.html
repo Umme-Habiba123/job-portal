@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>My Posted Jobs</h1>
+
+    <a href="{% url 'post_job' %}">
+        Post a New Job
+    </a>
+
+    <hr>
+
+    {% for job in jobs %}
+
+        <div>
+            <h3>{{ job.title }}</h3>
+
+            <p>Category: {{ job.category }}</p>
+
+            <p>
+                Openings: {{ job.number_of_openings }}
+            </p>
+
+            <p>Skills: {{ job.skills }}</p>
+
+            <p>Posted: {{ job.created_at }}</p>
+
+            <hr>
+        </div>
+
+    {% empty %}
+
+        <p>You have not posted any jobs yet.</p>
+
+    {% endfor %}
+
+{% endblock content %}

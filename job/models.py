@@ -42,11 +42,13 @@ class JobSeeker_Profile(models.Model):
        return  self.full_name
 
 class Job(models.Model):
+   recruiter=models.ForeignKey(User, on_delete=models.CASCADE, related_name='jobs')
    title=models.CharField(max_length=200)
    vacancy=models.CharField(max_length=20)
    category=models.CharField(max_length=200)
    jobdescription=models.CharField(max_length=200)
    skills=models.CharField(max_length=300)
+   created_at=models.DateTimeField(auto_now_add=True)
    
    def __str__(self):
       return self.title
