@@ -52,3 +52,11 @@ class Job(models.Model):
    
    def __str__(self):
       return self.title
+   
+
+# class Applications(models.Model):
+#    STATUS_CHOICES=[
+#       ('pending', 'Pending'),
+#       ('shortlisted', 'Shortlisted'),
+#       ('rijected', 'Rijected'),
+#    ]

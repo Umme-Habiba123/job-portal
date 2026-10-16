@@ -81,12 +81,64 @@ def jobpost(request):
               'form' : form  
        })   
       
-        
+
+@login_required(login_url='login')       
 def recruiter_dashboard(request):
-    jobs=job.objects.filter(
-        recruiter=recruiter.user
-    ).order_by('created_at')
+    jobs=Job.objects.filter(
+        recruiter=request.user
+    ).order_by('-created_at')
     
-    return render(request, 'recruiter_dashboard.html',{
+    return render(request, 'recruiterDashboard.html',{
         'jobs':jobs
+    })
+    
+    
+def update_job(request, id):
+    job=Job.objects.get(id=id, recruiter=request.user)
+    
+    if request.method=='POST':
+       form =JobForm(request.POST, instance=job)
+    
+       if form.is_valid():
+           form.save()
+           return redirect('recruiter_dashboard')
+    
+    else:
+        form=JobForm(instance=job)
+    
+    
+    return render(request, 'updateJob.html',{
+        'form':form
+    })
+    
+    
+def delete_job(request, id):
+    job=Job.objects.get(id=id, recruiter=request.user)
+    
+    if request.method=='POST':
+        job.delete()
+        return redirect('recruiter_dashboard')
+    
+    return render(request, 'recruiterDashboard.html')
+
+
+def job_list(request):
+    jobs=Job.objects.all().order_by('-created_at')
+    
+    search_query=request.GET.get('title','')
+     
+    if search_query:
+         jobs=jobs.filter(title__icontains=search_query)
+    
+    return render(request, 'job_list.html',{
+        'jobs':jobs,
+        'search_query': search_query,
+        
+    })
+    
+def job_details(request, id):
+    job=Job.objects.get(id=id)
+    
+    return render(request, 'job_details.html',{
+        'job':job
     })

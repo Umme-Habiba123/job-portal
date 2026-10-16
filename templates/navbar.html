@@ -19,7 +19,7 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-dark" href="#">
+                    <a class="nav-link active text-dark" href="{% url 'home' %}">
                         Home
                     </a>
                 </li>
@@ -43,9 +43,11 @@
                 </li>
             </ul>
 
-            <form class="d-flex gap-2" role="search">
+            <form method="GET" action="{% url 'job_list' %}" class="d-flex gap-2" role="search">
                 <input class="form-control"
                        type="search"
+                       name="title"
+                       value="{{request.GET.title}}"
                        placeholder="Search jobs..."
                        aria-label="Search">
 

@@ -84,7 +84,7 @@ class LoginForm(AuthenticationForm):
 class JobForm(forms.ModelForm):
     class Meta:
         model=Job
-        fields=['title', 'vacancy','category','job-description','skills']
+        fields=['title', 'vacancy','category','jobdescription','skills']
         
     #  widget={
     #      'description':forms.Textarea(

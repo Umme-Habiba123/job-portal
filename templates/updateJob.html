@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Update Job Information</h2>
+<form method="POST">
+
+
+    {% csrf_token%}
+    {{form.as_p}}
+
+    <button type="submit" class="btn btn-primary w-10">
+        Update
+    </button>
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
