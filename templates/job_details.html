@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
@@ -32,8 +31,20 @@
                 {{ job.created_at|date:"d M Y" }}
             </p>
 
-            <a href="{% url 'job_list'  %}"
-               class="btn btn-secondary">
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+           
+
+            <a href="{% url 'apply_job' job.id %}">
+             <button type="submit" class="btn btn-primary">
+            Apply Now
+        </button></a>
+
+
+            <a href="{% url 'job_list'  %}" class="btn btn-secondary">
                 Back to Jobs
             </a>
         </div>

@@ -11,7 +11,17 @@ class Recruiter_ProfileForm(forms.ModelForm):
          model=Recruiter_Profile
          fields= '__all__'
          
-         
+class JobSeeker_ProfileForm(forms.ModelForm):
+    class Meta:
+        model = JobSeeker_Profile
+        fields = [
+            'full_name',
+            'phone',
+            'address',
+            'skills',
+            'experience',
+            'resume',
+        ]      
          
 class RegisterForm(UserCreationForm):
     username=forms.CharField(label='Username', widget=forms.TextInput(
@@ -86,15 +96,3 @@ class JobForm(forms.ModelForm):
         model=Job
         fields=['title', 'vacancy','category','jobdescription','skills']
         
-    #  widget={
-    #      'description':forms.Textarea(
-    #          attrs={
-    #              'rows'=4
-    #          }
-    #      ),
-    #      'skills':forms.Textarea(
-    #          attrs={
-    #              'rows':2
-    #          }
-    #      ),
-    #  }

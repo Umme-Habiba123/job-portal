@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Skill Matched Jobs</h2>
+
+{% if profile_missing %}
+    <p>Please create your Job Seeker profile first.</p>
+
+{% elif matched_jobs %}
+    {% for item in matched_jobs %}
+        <h3>{{ item.job.title }}</h3>
+        <p>Category: {{ item.job.category }}</p>
+        <p>Required Skills: {{ item.job.skills }}</p>
+        <p>Matched Skills: {{ item.matched_skills|join:", " }}</p>
+        <p>
+            Skills Matched:
+            {{ item.match_count }}/{{ item.total_skills }}
+        </p>
+
+        <a href="{% url 'job_details' item.job.id %}"
+           class="btn btn-primary">
+            View Details
+        </a>
+
+        <hr>
+    {% endfor %}
+
+{% else %}
+    <p>No matching jobs found.</p>
+{% endif %}
+{% endblock content %}

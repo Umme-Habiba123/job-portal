@@ -12,4 +12,7 @@ urlpatterns = [
     path('deletejob/<int:id>/', delete_job, name='deleteJob'),
     path('joblist', job_list, name='job_list'),
     path('job_details/<int:id>/', job_details, name='job_details'),
+    path('apply/<int:id>/', apply_job, name='apply_job'),
+    path('skill-matched-jobs/', skill_matched_jobs, name='skill_matched_jobs'),
+    path('jobseeker/profile/', create_jobseeker_profile, name='jobseeker_profile')
 ]

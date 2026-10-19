@@ -16,7 +16,8 @@
             <p>Description: {{ job.jobdescription }}</p>
 
             <p>Skills: {{ job.skills }}</p>
-
+ 
+            <a href="{% url 'job_details' job.id %}">View Details</a>
             <hr>
         </div>
 
