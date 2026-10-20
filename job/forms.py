@@ -6,11 +6,19 @@ from django.contrib.auth.forms import AuthenticationForm ,UserCreationForm
 User =get_user_model()
 
 
+
 class Recruiter_ProfileForm(forms.ModelForm):
-     class Meta:
-         model=Recruiter_Profile
-         fields= '__all__'
-         
+    class Meta:
+        model = Recruiter_Profile
+        fields = [
+            'company_name',
+            'company_description',
+            'company_website',
+            'company_address',
+            'contact_info',
+        ]
+
+        
 class JobSeeker_ProfileForm(forms.ModelForm):
     class Meta:
         model = JobSeeker_Profile

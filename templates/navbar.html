@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
     <div class="container-fluid">
 
-        <a class="navbar-brand fw-bold text-dark" href="{ % url '' %}">
+        <a class="navbar-brand fw-bold text-dark" href="{% url 'home' %}">
             Job Portal
         </a>
 
@@ -19,42 +19,56 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link active text-dark" href="{% url 'jobseeker_profile' %}">
-                        My Profile
-                    </a>
-                </li>
+                {% if user.is_authenticated %}
+                {% if user.user_type == 'jobseeker' %}
+
 
                 <li class="nav-item">
-                    <a class="nav-link text-secondary" href="{% url 'jobpost' %}">
+                    <a class="nav-link active text-dark" href="{% url 'jobseeker_profile' %}">
+                         My Profile
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" href="{% url 'job_list' %}">
                         Jobs
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="{% url 'recruiter_dashboard' %}">
-                        Dashboard
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
 
-                {% if user.user_type == 'jobseeker' %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'skill_matched_jobs' %}">
+                    <a class="nav-link active text-dark" href="{% url 'skill_matched_jobs' %}">
                         Skill Matched Jobs
                     </a>
                 </li>
+
                 {% endif %}
 
                 {% if user.user_type == 'recruiter' %}
+
+              
+
+                 <li class="nav-item">
+                    <a class="nav-link active text-dark" href="{% url 'recruiter_profile' %}">
+                        My Profile
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'jobpost' %}">
+                        Post a Job
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'recruiter_dashboard' %}">
-                        Skill Match
+                        My Posted Jobs
                     </a>
                 </li>
                 {% endif %}
-
                 {% endif %}
+
             </ul>
 
             <form method="GET" action="{% url 'job_list' %}" class="d-flex gap-2" role="search">

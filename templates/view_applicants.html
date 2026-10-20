@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Applicants for {{ job.title }}</h2>
+
+{% for application in applications %}
+    <hr>
+
+    <p>Username: {{ application.jobseeker.username }}</p>
+    <p>Applied at: {{ application.applied_at }}</p>
+    <p>Status: {{ application.get_status_display }}</p>
+
+    {% if application.resume %}
+        <a href="{{ application.resume.url }}" target="_blank">
+            View Resume
+        </a>
+    {% else %}
+        <p>No resume uploaded.</p>
+    {% endif %}
+
+{% empty %}
+    <p>No applicants yet.</p>
+{% endfor %}
+
+<button>
+    <a href="{% url 'recruiter_dashboard' %}">
+    Back to My Posted Jobs
+</a>
+</button>
+{% endblock content %}

@@ -66,8 +66,11 @@ def user_logout(request):
     return redirect('login')
 
 
-@login_required
+@login_required(login_url='login')
 def jobpost(request):
+    if request.user.user_type != 'recruiter':
+        return redirect('home')
+    
     if request.method=='POST':
         form=JobForm(request.POST)
         
@@ -96,6 +99,9 @@ def recruiter_dashboard(request):
     
 @login_required(login_url='login')   
 def update_job(request, id):
+    if request.user.user_type !='recruiter':
+        return redirect('home')
+    
     job=Job.objects.get(id=id, recruiter=request.user)
     
     if request.method=='POST':
@@ -115,6 +121,9 @@ def update_job(request, id):
     
 @login_required(login_url='login')    
 def delete_job(request, id):
+    if request.user.user_type != 'recruiter':
+      return redirect('home')
+  
     job=Job.objects.get(id=id, recruiter=request.user)
     
     if request.method=='POST':
@@ -171,7 +180,7 @@ def apply_job(request, id):
             jobseeker=request.user,
             resume=resume
         )
-        messages.success(request, 'Application submitted successfully')
+        messages.success(request, 'Congratulation ! Application submitted successfully')
         
     return redirect('job_details', id=job.id)
 
@@ -259,3 +268,52 @@ def create_jobseeker_profile(request):
         'jobseeker_profile.html',
         {'form': form}
     )
+  
+
+@login_required(login_url='login')
+def create_recruiter_profile(request):
+    if request.user.user_type != 'recruiter':
+        return redirect('home')
+
+    profile = Recruiter_Profile.objects.filter(
+        user=request.user
+    ).first()
+
+    if request.method == 'POST':
+        form = Recruiter_ProfileForm(
+            request.POST,
+            instance=profile
+        )
+
+        if form.is_valid():
+            saved_profile = form.save(commit=False)
+            saved_profile.user = request.user
+            saved_profile.save()
+            messages.success(request, 'Profile saved successfully!')
+            return redirect('recruiter_dashboard')
+    else:
+        form = Recruiter_ProfileForm(instance=profile)
+
+    return render(request, 'recruiter_profile.html', {
+        'form': form
+    })
+  
+    
+@login_required(login_url='login')
+def view_applicants(request, id):
+    if request.user.user_type != 'recruiter':
+        return redirect('home')
+
+    job = Job.objects.get(
+        id=id,
+        recruiter=request.user
+    )
+
+    applications = Applications.objects.filter(
+        job=job
+    ).select_related('jobseeker')
+
+    return render(request, 'view_applicants.html', {
+        'job': job,
+        'applications': applications,
+    })
